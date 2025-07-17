@@ -1,0 +1,1 @@
+{"uuid":"ff376b64-75a2-4ba6-af25-706ae5fbad6c","name":"com.vabro.tests.RefreshTokenTest","children":["d415c4cc-c190-497f-98e8-227a686b6e94"],"befores":[{"name":"setupToken","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1752686598678,"stop":1752686602509}],"afters":[],"start":1752686598653,"stop":1752686604144}
