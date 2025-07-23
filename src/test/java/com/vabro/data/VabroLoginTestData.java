@@ -16,8 +16,8 @@ public class VabroLoginTestData {
         geoData.put("timeZone", "UTC");
 
         Map<String, Object> loginData = new HashMap<>();
-        loginData.put("emailId", AppConfig.EMAIL_ID);
-        loginData.put("password", AppConfig.PASSWORD);
+        loginData.put("emailId", AppConfig.getEmail());
+        loginData.put("password", AppConfig.getPassword());
         loginData.put("ipAddress", "192.168.1.1");
         loginData.put("timeZone", "UTC");
         loginData.put("deviceType", "Desktop");

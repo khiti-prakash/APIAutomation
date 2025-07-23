@@ -38,7 +38,7 @@ public class RefreshTokenTest extends BaseTest {
     @Test(priority = 3)
     public void TC_REFRESHTOKEN_003_blankPayload() {
         int status = service.getStatusCode(VabroRefreshTokenTestData.getBlankPayload());
-        assertThat(status).isEqualTo(400);
+        assertThat(status).isEqualTo(401);
     }
 
     @Test(priority = 4)

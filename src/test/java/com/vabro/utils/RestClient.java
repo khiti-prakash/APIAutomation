@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import static config.AppConfig.BASE_URL;
+import static config.AppConfig.getBaseUrl;
 
 public class RestClient {
    // private static Properties properties = new Properties();
@@ -19,20 +19,29 @@ public class RestClient {
     // Use the BASE_URL and AUTH_TOKEN from AppConfig
     public static Response sendGetRequest(String endpoint) {
         RequestSpecification request = RestAssured.given()
-                .baseUri(AppConfig.BASE_URL)  // Set the base URI from AppConfig
-                .contentType(AppConfig.CONTENT_TYPE); // Default content type
+                .baseUri(AppConfig.getBaseUrl())  // Set the base URI from AppConfig
+                .contentType(AppConfig.getContentType()); // Default content type
 
         return request.get(endpoint);
     }
 
     // Send a POST request
     public static Response sendPostRequest(String endpoint, String body) {
+
+        String baseUrl = AppConfig.getBaseUrl();
+        String contentType = AppConfig.getContentType();
+
+        System.out.println("Base URL: " + baseUrl);
+        System.out.println("Endpoint: " + endpoint);
+        System.out.println("Content-Type: " + contentType);
+        System.out.println("Request Body: " + body);
+
         RestAssured.config = RestAssured.config()
                 .decoderConfig(DecoderConfig.decoderConfig().noContentDecoders());
 
         RequestSpecification request = RestAssured.given()
-                .baseUri(AppConfig.BASE_URL)  // Set the base URI from AppConfig
-                .contentType(AppConfig.CONTENT_TYPE)
+                .baseUri(AppConfig.getBaseUrl())  // Set the base URI from AppConfig
+                .contentType(AppConfig.getContentType())
                 .body(body);  // Add the body if required
 
         return request.post(endpoint);
@@ -46,8 +55,8 @@ public class RestClient {
         RestAssuredUtils.configureRestAssured(); // Apply config once here
 
         RequestSpecification request = RestAssured.given()
-                .baseUri(AppConfig.BASE_URL)  // Set the base URI from AppConfig
-                .contentType(AppConfig.CONTENT_TYPE)
+                .baseUri(AppConfig.getBaseUrl())  // Set the base URI from AppConfig
+                .contentType(AppConfig.getContentType())
                 .header("Authorization", "Bearer " + token)
                 .body(body);  // Add the body if required
 
@@ -58,8 +67,8 @@ public class RestClient {
     public static Response sendPostRequestWithHeaders(String endpoint, String body, Map<String, String> headers) {
         // Create a RequestSpecification object
         RequestSpecification request = io.restassured.RestAssured.given()
-                .baseUri(AppConfig.BASE_URL)          // Set the base URL
-                .contentType(AppConfig.CONTENT_TYPE) // Set the content type to JSON
+                .baseUri(AppConfig.getBaseUrl())          // Set the base URL
+                .contentType(AppConfig.getContentType()) // Set the content type to JSON
                 .body(body); // Set the request body (converted to JSON)
 
         // Add custom headers to the request
@@ -75,9 +84,9 @@ public class RestClient {
     public static Response sendGetRequestWithToken(String endpoint) {
         // Send GET request with Authorization header using the token from AppConfig
         RequestSpecification request = RestAssured.given()
-                .baseUri(AppConfig.BASE_URL)  // Set the base URI from AppConfig
-                .contentType(AppConfig.CONTENT_TYPE)
-                .header("Authorization", "Bearer " + AppConfig.AUTH_TOKEN);  // Authorization header using the token
+                .baseUri(AppConfig.getBaseUrl())  // Set the base URI from AppConfig
+                .contentType(AppConfig.getContentType())
+                .header("Authorization", "Bearer " + AppConfig.getBearerToken());  // Authorization header using the token
 
         return request.get(endpoint);
     }
@@ -85,8 +94,8 @@ public class RestClient {
     // Send a PUT request (for updating a resource)
     public static Response sendPutRequest(String endpoint, String body) {
         RequestSpecification request = RestAssured.given()
-                .baseUri(AppConfig.BASE_URL)  // Set the base URL from AppConfig
-                .contentType(AppConfig.CONTENT_TYPE)
+                .baseUri(AppConfig.getBaseUrl())  // Set the base URL from AppConfig
+                .contentType(AppConfig.getContentType())
                 .body(body);  // The body of the PUT request (usually JSON data)
 
         return request.put(endpoint);  // Send the PUT request to the endpoint
@@ -95,8 +104,8 @@ public class RestClient {
     // Send a DELETE request (for deleting a resource)
     public static Response sendDeleteRequest(String endpoint) {
         RequestSpecification request = RestAssured.given()
-                .baseUri(AppConfig.BASE_URL)  // Set the base URL from AppConfig
-                .contentType(AppConfig.CONTENT_TYPE);
+                .baseUri(AppConfig.getBaseUrl())  // Set the base URL from AppConfig
+                .contentType(AppConfig.getContentType());
 
 
         return request.delete(endpoint);  // Send the DELETE request to the endpoint
@@ -105,9 +114,9 @@ public class RestClient {
     // Send a GET request with query parameters
     public static Response sendGetRequestWithParam(String endpoint, Map<String, String> queryParams) {
         RequestSpecification request = RestAssured.given()
-                .baseUri(AppConfig.BASE_URL)  // Set the base URL from AppConfig
-                .contentType(AppConfig.CONTENT_TYPE)
-                .header("Authorization", "Bearer " + AppConfig.AUTH_TOKEN);
+                .baseUri(AppConfig.getBaseUrl())  // Set the base URL from AppConfig
+                .contentType(AppConfig.getContentType())
+                .header("Authorization", "Bearer " + AppConfig.getBearerToken());
 
         // Add query parameters to the request
         if (queryParams != null && !queryParams.isEmpty()) {
@@ -119,9 +128,9 @@ public class RestClient {
     // Send a GET request with query parameters
     public static Response sendGetRequestWithParams(String endpoint, Map<String, List<String>> queryParams) {
         RequestSpecification request = RestAssured.given()
-                .baseUri(AppConfig.BASE_URL)  // Set the base URL from AppConfig
-                .contentType(AppConfig.CONTENT_TYPE)
-                .header("Authorization", "Bearer " + AppConfig.AUTH_TOKEN);
+                .baseUri(AppConfig.getBaseUrl())  // Set the base URL from AppConfig
+                .contentType(AppConfig.getContentType())
+                .header("Authorization", "Bearer " + AppConfig.getBearerToken());
 
         // Properly add multi-value query parameters
         if (queryParams != null && !queryParams.isEmpty()) {
@@ -136,9 +145,9 @@ public class RestClient {
     }
     public static Response sendGetRequestWithParams(String endpoint, String qParams) {
         RequestSpecification request = RestAssured.given()
-                .baseUri(AppConfig.BASE_URL)  // Set the base URL from AppConfig
-                .contentType(AppConfig.CONTENT_TYPE)
-                .header("Authorization", "Bearer " + AppConfig.AUTH_TOKEN);
+                .baseUri(AppConfig.getBaseUrl())  // Set the base URL from AppConfig
+                .contentType(AppConfig.getContentType())
+                .header("Authorization", "Bearer " + AppConfig.getBearerToken());
 
         // Add query parameters to the request
         if (qParams != null && !qParams.isEmpty()) {
@@ -151,8 +160,8 @@ public class RestClient {
 
     public static Response sendOptionsRequest(String endpoint) {
         return RestAssured.given()
-                .baseUri(AppConfig.BASE_URL)
-                .contentType(AppConfig.CONTENT_TYPE)
+                .baseUri(AppConfig.getBaseUrl())
+                .contentType(AppConfig.getContentType())
                 .when()
                 .options(endpoint);
     }

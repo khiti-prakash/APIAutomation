@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="API Suite"  thread-count="4">
+    <test name="Login API">
+        <parameter name="env" value="prod" /> <!-- or "prod" -->
+        <classes>
+            <class name="com.vabro.tests.LoginTest"/>
+            <class name="com.vabro.tests.RefreshTokenTest"/>
+        </classes>
+    </test>
+</suite>

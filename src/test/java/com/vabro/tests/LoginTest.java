@@ -14,14 +14,19 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class LoginTest {
 
-//    String validEmail = "testervabro1@gmail.com";
-//    String validPassword = "Test@123";
-//    String invalidEmail = "invalid@example.com";
-//    String invalidPassword = "Wrong@123";
-//    String ipAddress = "192.168.1.1";
-//    String timeZone = "UTC";
-//    String deviceType = "Desktop";
-//    String geoDataRequest = "{\"latitude\": 51.5074, \"longitude\": -0.1278}"; // Example JSON geo-data
+    // Static block to load config ONCE when the class is loaded
+    static {
+        String environment = System.getProperty("env", "prod"); // default to "dev"
+
+        if ("dev".equalsIgnoreCase(environment)) {
+            AppConfig.load("dev");
+        } else if ("prod".equalsIgnoreCase(environment)) {
+            AppConfig.load("prod");
+        } else {
+            throw new IllegalArgumentException("Unknown environment: " + environment);
+        }
+    }
+
 
     LoginService loginService = new LoginService();
 
